@@ -1,0 +1,60 @@
+name: ESP32 Full Automation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  esp32-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework pyserial
+
+      - name: Configure Arduino CLI
+        run: |
+          .\arduino-cli.exe config init
+          .\arduino-cli.exe core update-index
+          .\arduino-cli.exe core install esp32:esp32
+
+      - name: Compile Sender Firmware
+        run: |
+          .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 sender
+
+      - name: Upload Sender Firmware
+        run: |
+          .\arduino-cli.exe upload -p COM6 --fqbn esp32:esp32:esp32 sender
+
+      - name: Compile Receiver Firmware
+        run: |
+          .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 receiver
+
+      - name: Upload Receiver Firmware
+        run: |
+          .\arduino-cli.exe upload -p COM7 --fqbn esp32:esp32:esp32 receiver
+
+      - name: Run Robot Tests
+        run: |
+          robot test.robot
+
+      - name: Upload Robot Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-report
+          path: |
+            report.html
+            log.html
+            output.xml
