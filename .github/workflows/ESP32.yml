@@ -15,48 +15,43 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Verify existing Python
+      # 2️⃣ Verify Python (optional, just to check)
       - name: Verify Python
         run: python --version
 
-      # 3️⃣ Install Robot Framework & PySerial (no pip upgrade)
-      - name: Install Robot Framework & PySerial
-        run: |
-          pip install robotframework pyserial
-
-      # 4️⃣ Configure Arduino CLI
+      # 3️⃣ Configure Arduino CLI
       - name: Configure Arduino CLI
         run: |
           .\arduino-cli.exe config init
           .\arduino-cli.exe core update-index
           .\arduino-cli.exe core install esp32:esp32
 
-      # 5️⃣ Compile Sender Firmware (ESP1)
+      # 4️⃣ Compile Sender Firmware (ESP1)
       - name: Compile Sender Firmware
         run: |
           .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 sender
 
-      # 6️⃣ Upload Sender Firmware to COM6
+      # 5️⃣ Upload Sender Firmware to COM6
       - name: Upload Sender Firmware
         run: |
           .\arduino-cli.exe upload -p COM6 --fqbn esp32:esp32:esp32 sender
 
-      # 7️⃣ Compile Receiver Firmware (ESP2)
+      # 6️⃣ Compile Receiver Firmware (ESP2)
       - name: Compile Receiver Firmware
         run: |
           .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 receiver
 
-      # 8️⃣ Upload Receiver Firmware to COM7
+      # 7️⃣ Upload Receiver Firmware to COM7
       - name: Upload Receiver Firmware
         run: |
           .\arduino-cli.exe upload -p COM7 --fqbn esp32:esp32:esp32 receiver
 
-      # 9️⃣ Run Robot Framework tests
+      # 8️⃣ Run Robot Framework tests (already installed)
       - name: Run Robot Tests
         run: |
           robot test.robot
 
-      # 🔟 Upload Robot Framework reports
+      # 9️⃣ Upload Robot Framework reports
       - name: Upload Robot Report
         uses: actions/upload-artifact@v4
         with:
