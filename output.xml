@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on win32)" generated="2026-02-14T16:19:11.005063" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="C:\Users\a7577\Desktop\comp_led_uart_test\test.robot">
+<kw name="Open Port" owner="serial_lib" type="SETUP">
+<msg time="2026-02-14T16:19:14.118526" level="INFO">Opening port: COM6
+Port opened successfully</msg>
+<arg>${PORT}</arg>
+<status status="PASS" start="2026-02-14T16:19:11.050185" elapsed="3.068600"/>
+</kw>
+<test id="s1-t1" name="SYNC ON Test" line="10">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-14T16:19:14.621769" level="INFO">Sending: SYNC_ON</msg>
+<arg>SYNC_ON</arg>
+<status status="PASS" start="2026-02-14T16:19:14.120455" elapsed="0.501546"/>
+</kw>
+<kw name="Read Response" owner="serial_lib">
+<msg time="2026-02-14T16:19:14.624124" level="INFO">Received: ACK_ON</msg>
+<msg time="2026-02-14T16:19:14.624426" level="INFO">${resp} = ACK_ON</msg>
+<var>${resp}</var>
+<status status="PASS" start="2026-02-14T16:19:14.623074" elapsed="0.001426"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp}</arg>
+<arg>ACK_ON</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-14T16:19:14.625556" elapsed="0.001594"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:14.119162" elapsed="0.508575"/>
+</test>
+<test id="s1-t2" name="SYNC OFF Test" line="15">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-14T16:19:15.130964" level="INFO">Sending: SYNC_OFF</msg>
+<arg>SYNC_OFF</arg>
+<status status="PASS" start="2026-02-14T16:19:14.629670" elapsed="0.501497"/>
+</kw>
+<kw name="Read Response" owner="serial_lib">
+<msg time="2026-02-14T16:19:15.132985" level="INFO">Received: ACK_OFF</msg>
+<msg time="2026-02-14T16:19:15.133561" level="INFO">${resp} = ACK_OFF</msg>
+<var>${resp}</var>
+<status status="PASS" start="2026-02-14T16:19:15.131937" elapsed="0.001738"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp}</arg>
+<arg>ACK_OFF</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-14T16:19:15.134738" elapsed="0.001332"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:14.628800" elapsed="0.508385"/>
+</test>
+<test id="s1-t3" name="Ping Test" line="20">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-14T16:19:15.641959" level="INFO">Sending: PING</msg>
+<arg>PING</arg>
+<status status="PASS" start="2026-02-14T16:19:15.140492" elapsed="0.501665"/>
+</kw>
+<kw name="Read Response" owner="serial_lib">
+<msg time="2026-02-14T16:19:15.643912" level="INFO">Received: PONG</msg>
+<msg time="2026-02-14T16:19:15.644181" level="INFO">${resp} = PONG</msg>
+<var>${resp}</var>
+<status status="PASS" start="2026-02-14T16:19:15.642925" elapsed="0.001317"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp}</arg>
+<arg>PONG</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-14T16:19:15.644969" elapsed="0.001320"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:15.138767" elapsed="0.508373"/>
+</test>
+<test id="s1-t4" name="PI Command Test" line="25">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-14T16:19:16.150573" level="INFO">Sending: .pi</msg>
+<arg>.pi</arg>
+<status status="PASS" start="2026-02-14T16:19:15.649498" elapsed="0.501278"/>
+</kw>
+<kw name="Read Response" owner="serial_lib">
+<msg time="2026-02-14T16:19:16.152872" level="INFO">Received: PI=3.14159</msg>
+<msg time="2026-02-14T16:19:16.153259" level="INFO">${resp} = PI=3.14159</msg>
+<var>${resp}</var>
+<status status="PASS" start="2026-02-14T16:19:16.151588" elapsed="0.001782"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${resp}</arg>
+<arg>PI</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-02-14T16:19:16.153972" elapsed="0.001601"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:15.648354" elapsed="0.508339"/>
+</test>
+<test id="s1-t5" name="Reboot Test" line="30">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-14T16:19:16.661886" level="INFO">Sending: .reboot</msg>
+<arg>.reboot</arg>
+<status status="PASS" start="2026-02-14T16:19:16.160493" elapsed="0.501602"/>
+</kw>
+<kw name="Read Response" owner="serial_lib">
+<msg time="2026-02-14T16:19:16.664337" level="INFO">Received: REBOOTING...</msg>
+<msg time="2026-02-14T16:19:16.664713" level="INFO">${resp} = REBOOTING...</msg>
+<var>${resp}</var>
+<status status="PASS" start="2026-02-14T16:19:16.662889" elapsed="0.001915"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp}</arg>
+<arg>REBOOTING...</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-14T16:19:16.665393" elapsed="0.000847"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:16.159363" elapsed="0.507421"/>
+</test>
+<kw name="Close Port" owner="serial_lib" type="TEARDOWN">
+<msg time="2026-02-14T16:19:16.670338" level="INFO">Port closed</msg>
+<status status="PASS" start="2026-02-14T16:19:16.668722" elapsed="0.001780"/>
+</kw>
+<status status="PASS" start="2026-02-14T16:19:11.006626" elapsed="5.663969"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Test" id="s1" pass="5" fail="0" skip="0">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
